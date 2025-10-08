@@ -23,5 +23,5 @@
   SurveyCake: 台灣本土問卷平台，提供更豐富的題型與邏輯跳題功能。
   數據分析軟體：
   SPSS: 用於進行描述性統計、信度分析、效度分析等初步數據處理。
-  AMOS / SmartPLS: 用於執行「結構方程模型 (Structural Equation Modeling, SEM)」分析，驗證本研究提出的整合性理論模型。
+  AMOS / SmartPLS: 用於執行「結構方程模型 (SEM)」分析，驗證本研究提出的理論模型。
 
