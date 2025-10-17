@@ -43,64 +43,54 @@
 ---
 ## 功能分解圖
 ```mermaid
-graph TD
-    A[探討Gemini輔助學習之持續使用意圖,以台灣的學生為例]
+graph TD;
+    classDef level1 fill:#007bff,stroke:#0056b3,stroke-width:2px,color:#fff;
+    classDef level2 fill:#e9ecef,stroke:#adb5bd,stroke-width:1px,color:#333;
+    classDef level3 fill:#f8f9fa,stroke:#ced4da,stroke-width:1px,color:#333;
 
-    A --> B1[1. 文獻探討與模型建構]
-    B1 --> B11[1.1 蒐集科技接受模型(TAM)相關文獻]
-    B1 --> B12[1.2 探討AI品質變數(資訊、系統、服務)]
-    B1 --> B13[1.3 繪製初步研究架構圖與提出研究假設]
+    %% Level 0 & 1
+    A("Gemini學習輔助使用意圖"):::level1;
+    A --> B("1. 研究規劃與設計");
+    A --> C("2. 資料蒐集執行");
+    A --> D("3. 數據分析與驗證");
+    A --> E("4. 結論撰寫與成果發表");
 
-    A --> B2[2. 任務管理]
-    B2 --> B21[2.1 任務建立]
-    B2 --> B22[2.2 任務分配]
-    B2 --> B23[2.3 任務進度更新]
-    B2 --> B24[2.4 任務查詢與排序]
+    %% Level 2 - B (研究規劃與設計)
+    subgraph " "
+        direction LR
+        B --> B1("1.1 文獻探討與模型建構");
+        B --> B2("1.1 研究方法與問卷設計");
+        B --> B3("1.1 前導測試與問卷修訂");
+    end
 
-    A --> B3[3. 小組進度追蹤]
-    B3 --> B31[3.1 進度儀表板]
-    B3 --> B32[3.2 任務統計報表]
-    B3 --> B33[3.3 任務提醒通知]
+    %% Level 2 - C (資料蒐集執行)
+    subgraph " "
+        direction LR
+        C --> C1("2.2 確認研究對象與抽樣");
+        C --> C2("2.2 問卷發放與回收");
+        C --> C3("2.2 數據檢核與清理");
+    end
 
-    A --> B4[4. 通訊與協作功能]
-    B4 --> B41[4.1 任務留言板]
-    B4 --> B42[4.2 系統公告]
+    %% Level 2 - D (數據分析與驗證)
+    subgraph " "
+        direction LR
+        D --> D1("3.3 樣本資料描述性統計");
+        D --> D2("3.3 信度與效度分析");
+        D --> D3("3.3 結構模型分析與假設驗證");
+    end
 
-    A --> B5[5. 系統管理與維護]
-    B5 --> B51[5.1 小組與帳號管理]
-    B5 --> B52[5.2 系統安全與備份]
-    B5 --> B53[5.3 日誌與錯誤追蹤]
-    %% ---- 節點配色 ----
-    style A fill:#d7b6f6,stroke:#a678d3,stroke-width:2px,color:#000,font-weight:bold
-    style B1 fill:#fff3c4,stroke:#c2a83e,stroke-width:1px
-    style B2 fill:#fff3c4,stroke:#c2a83e,stroke-width:1px
-    style B3 fill:#fff3c4,stroke:#c2a83e,stroke-width:1px
-    style B4 fill:#fff3c4,stroke:#c2a83e,stroke-width:1px
-    style B5 fill:#fff3c4,stroke:#c2a83e,stroke-width:1px
+    %% Level 2 - E (結論撰寫與成果發表)
+    subgraph " "
+        direction LR
+        E --> E1("4.4 研究結果詮釋與討論");
+        E --> E2("4.4 結論與實務建議");
+        E --> E3("4.4 撰寫完整研究報告");
+    end
 
-    style B11 fill:#ffffff,stroke:#bcbcbc
-    style B12 fill:#ffffff,stroke:#bcbcbc
-    style B13 fill:#ffffff,stroke:#bcbcbc
-
-    style B21 fill:#ffffff,stroke:#bcbcbc
-    style B22 fill:#ffffff,stroke:#bcbcbc
-    style B23 fill:#ffffff,stroke:#bcbcbc
-    style B24 fill:#ffffff,stroke:#bcbcbc
-
-    style B31 fill:#ffffff,stroke:#bcbcbc
-    style B32 fill:#ffffff,stroke:#bcbcbc
-    style B33 fill:#ffffff,stroke:#bcbcbc
-
-    style B41 fill:#ffffff,stroke:#bcbcbc
-    style B42 fill:#ffffff,stroke:#bcbcbc
-
-    style B51 fill:#ffffff,stroke:#bcbcbc
-    style B52 fill:#ffffff,stroke:#bcbcbc
-    style B53 fill:#ffffff,stroke:#bcbcbc
+    %% 分類樣式
+    class B,C,D,E level2;
+    class B1,B2,B3,C1,C2,C3,D1,D2,D3,E1,E2,E3 level3;
 ```
----
-
-
 ---
 ## 使用案例圖
 
