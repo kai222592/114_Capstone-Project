@@ -5,7 +5,6 @@ sequenceDiagram
     participant System as 線上問卷平台
     participant DB as 問卷數據資料庫
     participant Team as 研究團隊
-
     Note over Participant, System: 前置條件：研究團隊已發布問卷，參與者已開啟連結
 
     %% 流程 1: 顯示介面 (已由前置條件完成)
