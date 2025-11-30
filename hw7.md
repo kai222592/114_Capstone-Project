@@ -2,71 +2,70 @@
 
 ```mermaid
 erDiagram
-    %% 使用者實體
-    Users {
-        int user_id PK "使用者ID"
-        string email "信箱(帳號)"
-        string password_hash "加密密碼"
-        string username "顯示名稱"
-        datetime created_at "註冊時間"
+    %% 專案管理
+    Projects {
+        int project_id PK "專案ID"
+        string project_name "專案名稱"
+        string description "描述"
+        datetime created_at "建立時間"
     }
 
-    %% 文獻實體 (核心表)
-    Papers {
-        int paper_id PK "文獻ID"
-        int user_id FK "擁有者ID"
-        string title "論文篇名"
-        string authors "作者群"
-        int publish_year "發表年份"
-        string journal "期刊名稱"
-        string file_path "PDF檔案路徑"
-        enum status "狀態 (0:未讀, 1:閱讀中, 2:已讀)"
-        text citation_apa "APA引用格式預存"
-        datetime uploaded_at "上傳時間"
+    %% 變數定義 (對應 Excel 的 Header)
+    Variables {
+        int variable_id PK "變數ID"
+        int project_id FK "所屬專案"
+        int construct_id FK "所屬構面(選填)"
+        string original_header "原始題目(Excel標題)"
+        string code_name "變數代碼 (如: PEOU1)"
+        boolean is_reverse "是否反向題"
+        string data_type "資料型態 (數值/類別)"
     }
 
-    %% AI 分析結果 (將摘要結構化儲存)
-    AI_Analysis {
-        int analysis_id PK "分析ID"
-        int paper_id FK "文獻ID"
-        text objective "研究目的"
-        text methodology "研究方法"
-        text results "主要發現"
-        text conclusion "研究結論"
-        string keywords "AI提取關鍵字 (JSON或字串)"
+    %% 構面定義 (用於信度分析與平均計算)
+    Constructs {
+        int construct_id PK "構面ID"
+        int project_id FK "所屬專案"
+        string name "構面名稱 (如: 知覺易用性)"
+        float cronbach_alpha "信度係數 (分析後回寫)"
     }
 
-    %% 標籤系統 (多對多關係)
-    Tags {
-        int tag_id PK "標籤ID"
-        int user_id FK "建立者ID"
-        string tag_name "標籤名稱 (如: #TAM)"
-        string color_code "標籤顏色 (如: #FF5733)"
+    %% 受測者 (代表 Excel 中的每一列 Row)
+    Respondents {
+        int respondent_id PK "受測者ID"
+        int project_id FK "所屬專案"
+        datetime submission_time "填答時間"
+        int status "狀態 (0:無效, 1:有效)"
+        string filter_reason "剔除原因 (如:填答過快)"
     }
 
-    %% 文獻與標籤的中介表
-    Paper_Tags {
-        int paper_id FK
-        int tag_id FK
+    %% 數據節點 (儲存每一個 Cell 的值)
+    Data_Values {
+        bigint value_id PK "數值ID"
+        int respondent_id FK "受測者"
+        int variable_id FK "對應變數"
+        string raw_value "原始填答值"
+        float cleaned_value "清洗後數值 (反向處理後)"
     }
 
-    %% 使用者筆記 (獨立表以支援多條筆記)
-    Notes {
-        int note_id PK "筆記ID"
-        int paper_id FK "文獻ID"
-        text content "筆記內容"
-        int page_ref "關聯頁碼 (選填)"
-        datetime created_at "筆記時間"
+    %% 構面分數快取 (加速報表顯示)
+    Construct_Scores {
+        int score_id PK
+        int respondent_id FK
+        int construct_id FK
+        float avg_score "構面平均分"
     }
 
     %% 關係定義
-    Users ||--o{ Papers : "上傳"
-    Users ||--o{ Tags : "自定義"
+    Projects ||--o{ Variables : "包含"
+    Projects ||--o{ Constructs : "定義"
+    Projects ||--o{ Respondents : "收集"
     
-    Papers ||--|| AI_Analysis : "擁有 (1對1)"
-    Papers ||--o{ Notes : "被註記"
-    Papers ||--o{ Paper_Tags : "包含"
+    Constructs ||--o{ Variables : "聚合"
     
-    Tags ||--o{ Paper_Tags : "被貼上"
+    Respondents ||--o{ Data_Values : "填寫"
+    Respondents ||--o{ Construct_Scores : "計算出"
+
+    Variables ||--o{ Data_Values : "定義內容"
+    Constructs ||--o{ Construct_Scores : "來源"
    
 ```
